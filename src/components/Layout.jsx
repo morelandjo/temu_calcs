@@ -4,6 +4,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 const links = [
   { label: 'Home', to: '/' },
   { label: 'Win Credit', to: '/win-credit' },
+  { label: 'Claim Credit', to: '/claim-credit' },
 ]
 
 export default function Layout() {
