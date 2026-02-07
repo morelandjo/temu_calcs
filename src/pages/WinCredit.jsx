@@ -9,6 +9,7 @@ import {
   Group,
   ThemeIcon,
   Image,
+  Modal,
 } from '@mantine/core'
 import exampleImg from '../assets/wincredit_example.png'
 
@@ -18,6 +19,7 @@ export default function WinCredit() {
   const [cashbackRate, setCashbackRate] = useState('')
   const [extra, setExtra] = useState('')
   const [cartTotal, setCartTotal] = useState('')
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const num = (v) => (typeof v === 'number' ? v : parseFloat(v))
   const bal = num(balance)
@@ -68,8 +70,8 @@ export default function WinCredit() {
 
       <Stack mt="lg" gap="md">
         <NumberInput
-          label="Current Balance"
-          description="Your available cash balance"
+          label="Available balance OR $x.xx secured"
+          description="See screenshot"
           prefix="$"
           decimalScale={2}
           fixedDecimalScale
@@ -80,7 +82,7 @@ export default function WinCredit() {
         />
 
         <NumberInput
-          label="Withdrawal Threshold"
+          label="Withdrawal Amount"
           description="The amount you need to reach to withdraw"
           prefix="$"
           decimalScale={2}
@@ -105,7 +107,7 @@ export default function WinCredit() {
         />
 
         <NumberInput
-          label="Extra Cash (optional)"
+          label="Extra (optional)"
           description="Sometimes an Extra will appear next to the cash back rate"
           prefix="$"
           decimalScale={2}
@@ -192,13 +194,31 @@ export default function WinCredit() {
             src={exampleImg}
             alt="Temu Win Credit example showing where to find your balance, withdrawal amount, and cash back rate"
             radius="sm"
-            maw={500}
+            maw={700}
             mx="auto"
+            onClick={() => setLightboxOpen(true)}
+            style={{ cursor: 'pointer' }}
           />
           <Text size="xs" c="dimmed" ta="center" mt="xs">
-            Example: Find these values on your Temu cash withdrawal screen
+            Example: Find these values on your Temu wincredit screen (click to enlarge)
           </Text>
         </Paper>
+
+        <Modal
+          opened={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+          size="xl"
+          centered
+          withCloseButton
+          padding={0}
+          styles={{ body: { padding: 0 }, content: { background: 'transparent' } }}
+        >
+          <Image
+            src={exampleImg}
+            alt="Temu Win Credit example (enlarged)"
+            radius="sm"
+          />
+        </Modal>
       </Stack>
     </Container>
   )
